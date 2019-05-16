@@ -28,7 +28,7 @@ public class TokenService {
     private Environment environment;
 
     @Transactional
-    public TokenDTO gerarToken(UserDTO userDTO) {
+    public TokenDTO generateToken(UserDTO userDTO) {
         User user = userRepository.find(userDTO.getId());
         Token token = new Token();
         token.setUser(user);
@@ -37,14 +37,14 @@ public class TokenService {
     }
 
     @Transactional
-    public void atualizarDataExperiacao(String token) {
+    public void renewExpirationDate(String token) {
         Token t = tokenRepository.find(token);
         t.setExpirationDate(new Date());
         tokenRepository.merge(t);
     }
 
     @Transactional(readOnly = true)
-    public TokenDTO getPorToken(String token) {
+    public TokenDTO getByToken(String token) {
     	try {
     		Token porToken = tokenRepository.find(token);
     		return new TokenDTO(porToken);
@@ -54,16 +54,17 @@ public class TokenService {
     }
 
     @Transactional(readOnly = true)
-    public TokenDTO getPorUser(String idUser) {
+    public TokenDTO getByUser(String idUser) {
         return new TokenDTO(tokenRepository.findByUser(idUser));
     }
 
+    @Transactional
     private Token insert(Token token) {
         tokenRepository.persist(token);
         return token;
     }
     
-    public boolean isTokenExpirada(TokenDTO tokenDTO) {
+    public boolean isTokenExpired(TokenDTO tokenDTO) {
     	
     	Date expirationDate = tokenDTO.getExpirationDate();
     	

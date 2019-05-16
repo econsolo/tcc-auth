@@ -54,9 +54,9 @@ public class Util {
         }
     }
     
-    public static boolean isSenhaValida(String senhaInformada, String senhaProtegida, Environment env) {
-        String novaSenhaProtegida = encrypt(senhaInformada, env);
-        return novaSenhaProtegida.equalsIgnoreCase(senhaProtegida);
+    public static boolean isPasswordValid(String passwordInserted, String passwordProtected, Environment env) {
+        String newProtectedPassword = encrypt(passwordInserted, env);
+        return newProtectedPassword.equalsIgnoreCase(passwordProtected);
     }
     
 }

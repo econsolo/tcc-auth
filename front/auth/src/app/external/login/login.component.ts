@@ -21,15 +21,15 @@ export class LoginComponent implements OnInit {
               @Inject(LoginService) private loginService: LoginService) {
 
     this.form = formBuilder.group({
-      Login: ['', [
+      email: ['', [
         Validators.required,
         Validators.maxLength(128),
         Validators.email
       ]],
-      Password: ['', [
+      password: ['', [
         Validators.required,
         Validators.maxLength(128),
-        Validators.minLength(6)
+        Validators.minLength(3)
       ]]
     });
 

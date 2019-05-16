@@ -12,15 +12,15 @@
           <mat-form-field appearance="outline" class="width-100">
             <mat-label>E-mail</mat-label>
             <mat-icon matPrefix>mail</mat-icon>
-            <input matInput type="text" formControlName="Login" maxlength="128" autocomplete="off" />
-            <mat-error *ngIf="form.controls['Login'].invalid && form.controls['Login'].touched">
-              <div class="error" *ngIf="form.controls['Login'].errors?.required">
+            <input matInput type="text" formControlName="email" maxlength="128" autocomplete="off" />
+            <mat-error *ngIf="form.controls['email'].invalid && form.controls['email'].touched">
+              <div class="error" *ngIf="form.controls['email'].errors?.required">
                 Campo obrigatório
               </div>
-              <div class="error" *ngIf="form.controls['Login'].errors?.maxlength">
+              <div class="error" *ngIf="form.controls['email'].errors?.maxlength">
                 Máximo de 128 caracteres
               </div>
-              <div class="error" *ngIf="form.controls['Login'].errors?.email">
+              <div class="error" *ngIf="form.controls['email'].errors?.email">
                 Insira um e-mail válido
               </div>
             </mat-error>
@@ -31,28 +31,24 @@
           <mat-form-field appearance="outline" class="width-100">
             <mat-label>Senha</mat-label>
             <mat-icon matPrefix>vpn_key</mat-icon>
-            <input matInput [type]="hide ? 'password' : 'text'" formControlName="Password" maxlength="128" autocomplete="off" />
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" maxlength="128" autocomplete="off" />
             <mat-icon class="click" matSuffix (click)="hide = !hide">
               {{hide ? 'visibility' : 'visibility_off'}}
             </mat-icon>
-            <mat-error *ngIf="form.controls['Password'].invalid && form.controls['Password'].touched">
-              <div class="error" *ngIf="form.controls['Password'].errors?.required">
+            <mat-error *ngIf="form.controls['password'].invalid && form.controls['password'].touched">
+              <div class="error" *ngIf="form.controls['password'].errors?.required">
                 Campo obrigatório
               </div>
-              <div class="error" *ngIf="form.controls['Password'].errors?.maxlength">
+              <div class="error" *ngIf="form.controls['password'].errors?.maxlength">
                 Máximo de 128 caracteres
               </div>
-              <div class="error" *ngIf="form.controls['Password'].errors?.minlength">
-                Mínimo de 6 caracteres
+              <div class="error" *ngIf="form.controls['password'].errors?.minlength">
+                Mínimo de 3 caracteres
               </div>
             </mat-error>
           </mat-form-field>
         </p>
 
-        <p>
-          Não possui uma conta?
-          <a href="javascript:void(0)" (click)="goTo('register')">Registre-se já</a>
-        </p>
 
       </mat-card-content>
 

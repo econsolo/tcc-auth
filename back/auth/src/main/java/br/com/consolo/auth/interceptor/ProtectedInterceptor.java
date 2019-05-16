@@ -32,39 +32,40 @@ public class ProtectedInterceptor extends HandlerInterceptorAdapter {
             
             Protected annotation = handlerMethod.getMethod().getAnnotation(Protected.class);
             
-            if (annotation != null) {
+            if (annotation != null) { // verifica se o endpoint possui a anotação de Protegido
             	
             	String token = request.getHeader("token");
             	
-            	if (StringUtils.isEmpty(token)) {
+            	if (StringUtils.isEmpty(token)) { // se a requisição HTTP não possuir o identificador em seu cabeçalho
             		throw new UnauthorizedException();
             	}
             	
-            	TokenDTO tokenDTO = tokenService.getPorToken(token);
+            	TokenDTO tokenDTO = tokenService.getByToken(token);
             	
-            	if (tokenDTO == null) {
+            	if (tokenDTO == null) { // caso o identificador não existir em nosso banco de dados
             		throw new InvalidCredentialsException();
             	}
             		
-            	if (tokenService.isTokenExpirada(tokenDTO)) {
+            	if (tokenService.isTokenExpired(tokenDTO)) { // caso o identificador expirou-se
             		throw new ExpiratedSessionException();
             	}
             	
             	RoleDTO roleDTO = tokenDTO.getUserDTO().getRoleDTO();
             	
-            	if (!RoleEnum.ADMIN.getId().equals(roleDTO.getId())) {
+            	if (!RoleEnum.ADMIN.getId().equals(roleDTO.getId())) { // usuário possui o perfil necessário para continuar ao endpoint?
 	            	
-	            	boolean perfilTemAcesso = Arrays.asList(annotation.role()).stream()
+	            	boolean roleAbleToGoIn = Arrays.asList(annotation.role()).stream()
 	            			.anyMatch(p -> roleDTO.getId().equals(p.getId()));
 	            	
-	            	if (!perfilTemAcesso) {
+	            	if (!roleAbleToGoIn) {
 	            		throw new UnauthorizedException();
 	            	}
             	}
             }
             
         }
-        return true;
+        return true; // se tudo estiver correto, prosseguir ao endpoint
     }
 	
 }
+

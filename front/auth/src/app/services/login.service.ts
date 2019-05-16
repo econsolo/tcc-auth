@@ -6,17 +6,13 @@ import {map} from 'rxjs/internal/operators';
 @Injectable()
 export class LoginService {
 
-  private baseUrl = `${API_URL}/user/`;
+  private baseUrl = `${API_URL}/auth/`;
 
   constructor(@Inject(Http) private http: Http) {
   }
 
   public authenticate(user) {
-    return this.http.post(`${this.baseUrl}login`, user).pipe(map(res => res.json()));
-  }
-
-  public register(user: any) {
-    return this.http.post(`${this.baseUrl}register`, user).pipe(map(res => res.json()));
+    return this.http.post(this.baseUrl, user).pipe(map(res => res.json()));
   }
 
 }

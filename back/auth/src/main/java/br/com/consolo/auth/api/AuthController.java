@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.consolo.auth.dtos.CredentialsDTO;
-import br.com.consolo.auth.dtos.UserDTO;
+import br.com.consolo.auth.dtos.TokenDTO;
 import br.com.consolo.auth.services.UserService;
 
 @RestController
@@ -16,14 +16,9 @@ public class AuthController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@RequestMapping(path = "/", method = RequestMethod.POST)
-	public UserDTO login(@RequestBody CredentialsDTO credentialsDTO) {
-		return userService.getByCredentials(credentialsDTO);
-	}
-	
-	@RequestMapping(path = "/teste", method = RequestMethod.GET)
-	public String teste() {
-		return "testando";
+	public TokenDTO login(@RequestBody CredentialsDTO credentialsDTO) {
+		return userService.auth(credentialsDTO);
 	}
 }

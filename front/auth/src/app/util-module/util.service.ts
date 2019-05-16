@@ -54,9 +54,9 @@ export class UtilService {
     return !!item;
   }
 
-  public getAuth(): any {
+  public getToken(): any {
     if (this.isLogged()) {
-      return JSON.parse(localStorage.getItem(LOCALSTORAGE_TOKEN_KEY));
+      return JSON.parse(localStorage.getItem(LOCALSTORAGE_TOKEN_KEY)).id;
     }
     return null;
   }
